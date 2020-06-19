@@ -53,6 +53,22 @@ function ecc_settings_init(  ) {
 	);
 
 	add_settings_field( 
+		'api_mediaId', 
+		__( 'Callme API Media ID*', 'ecc' ), 
+		'callme_api_mediaid_render', 
+		'pluginPage', 
+		'ecc_pluginPage_section_api' 
+	);
+
+	add_settings_field( 
+		'api_channel', 
+		__( 'Callme API Channel*', 'ecc' ), 
+		'callme_api_channel_render', 
+		'pluginPage', 
+		'ecc_pluginPage_section_api' 
+	);
+
+	add_settings_field( 
 		'callme_field_email', 
 		__( 'Campo de E-mail', 'ecc' ), 
 		'callme_field_email_render', 
@@ -85,6 +101,24 @@ function callme_api_key_render(  ) {
 	$options = get_option( 'ecc_settings' );
 	?>
 	<input type='text' required="true" name='ecc_settings[callme_api_key]' value='<?php echo $options['callme_api_key']; ?>'>
+	<?php
+
+}
+
+function callme_api_mediaid_render(  ) { 
+
+	$options = get_option( 'ecc_settings' );
+	?>
+	<input type='text' required="true" name='ecc_settings[api_mediaId]' value='<?php echo $options['api_mediaId']; ?>'>
+	<?php
+
+}
+
+function callme_api_channel_render(  ) { 
+
+	$options = get_option( 'ecc_settings' );
+	?>
+	<input type='text' required="true" name='ecc_settings[api_channel]' value='<?php echo $options['api_channel']; ?>'>
 	<?php
 
 }

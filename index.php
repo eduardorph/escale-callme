@@ -12,7 +12,7 @@ require dirname(__FILE__).'/modulos/settings.php';
 
 $options = get_option( 'ecc_settings' );
 
-if (!empty($options["callme_api_url"]) && !empty($options["callme_api_key"])) {
+if (!empty($options["callme_api_url"]) && !empty($options["callme_api_key"]) && !empty($options["api_mediaId"]) && !empty($options["api_channel"])) {
 
     require dirname(__FILE__).'/ativacao.php';
     require dirname(__FILE__).'/lib/curl-php/Curl.php';

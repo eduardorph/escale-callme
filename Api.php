@@ -13,13 +13,14 @@ function escale_claro_callme(){
 	$options = get_option( 'ecc_settings' );
 	$api_url = $options['callme_api_url'];
 	$api_key = $options['callme_api_key'];
+	$api_mediaId = $options['api_mediaId'];
+	$channel = $options['api_channel'];
 	
 
 	$nome = !empty($_POST["nome"]) ? $_POST["nome"] : "Cliente";
 	$cep = !empty($_POST["cep"]) ? preg_replace('/\D/', '', $_POST["cep"]) : null;
 	$email = !empty($_POST["email"]) ? $_POST["email"] : null;
 	$url = !empty($_POST["url"]) ? $_POST["url"] : $url_base;
-	$campanha = !empty($_POST["campanha"]) ? $_POST["campanha"] : 'Campanha';
 	$cid = !empty($_POST["cid"]) ? $_POST["cid"] : null;
 
 	if (substr($url, -1) == "/") {
@@ -31,7 +32,6 @@ function escale_claro_callme(){
 
 
 	$company = 'CLARO';
-	$channel = 'FORMULARIO_WEB';
 
 
 	$result = array();
@@ -80,7 +80,7 @@ function escale_claro_callme(){
 			'channel' => $channel,
 			'url' => $url,
 			'googleClientID' => $cid,
-			'mediaId' => $campanha,
+			'mediaId' => $api_mediaId,
 			'name' => $nome,
 			'cpf' => $cpf,
 			'phone' => $telefone,
@@ -124,7 +124,7 @@ function escale_claro_callme(){
 	        'channel'     => $channel,
 	        'url'     => $url,
 	        'googleClientID'     => $cid,
-	        'mediaId'     => $campanha,
+	        'mediaId'     => $api_mediaId,
 	        'name'     => $nome,
 	        'cpf'     => $cpf,
 	        'phone'     => $telefone,

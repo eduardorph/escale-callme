@@ -8,7 +8,7 @@ function abrir_callme_modal(){
 
 	?>
 
-	<div id="escale-callme-modal-ctas" class="escale-callme-modal "> <!-- callme_hide -->
+	<div id="escale-callme-modal-ctas" class="escale-callme-modal callme_hide"> <!-- callme_hide -->
 	    <div class="escale-callme-modal-wrapper">
 	        <div class="escale-callme-modal-header">
 	            <a id="escale-callme-modal-ctas-fechar" class="escale-callme-modal-fechar">
