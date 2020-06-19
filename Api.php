@@ -91,7 +91,7 @@ function escale_claro_callme(){
 	$headers = array(
 		'Content-Type: application/json',
 		'accept: application/json',
-		'x-client-key: ylcwE8XLOhJtAiynNA6p5gTCozyDSiyw'
+		'x-client-key: '.$api_key
 	);
 
 	$resposta = $curl->httpPost($api_url, json_encode($params), $headers);
