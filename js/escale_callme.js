@@ -1,6 +1,4 @@
 jQuery(function($) {
-	console.log("14");
-
 	$(document).on('click', '#escale-callme-modal-ctas-fechar', function(event) {
 		$("#escale-callme-modal-ctas").addClass('callme_hide');
 		$('form#escale_callme_form').slideDown(); // volta o formulario
@@ -66,7 +64,6 @@ jQuery(function($) {
 	    		btn.val(btn.attr('data-wait'));
 		    },
 	    	success: function(response){
-	    		console.log(response);
 	    		var response = JSON.parse(response);
 	    		
 	    		if (response.error == 'telefone') {
@@ -91,6 +88,7 @@ jQuery(function($) {
 	    		}
 	     	}, 
 	     	error: function(data){
+	     		console.log(data);
 	        	btn.val("Erro ao enviar.");
 	     	},
 	     	complete: function(){

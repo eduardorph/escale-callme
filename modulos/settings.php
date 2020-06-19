@@ -53,14 +53,6 @@ function ecc_settings_init(  ) {
 	);
 
 	add_settings_field( 
-		'callme_api_secret', 
-		__( 'Callme API Secret*', 'ecc' ), 
-		'callme_api_secret_render', 
-		'pluginPage', 
-		'ecc_pluginPage_section_api' 
-	);
-
-	add_settings_field( 
 		'callme_field_email', 
 		__( 'Campo de E-mail', 'ecc' ), 
 		'callme_field_email_render', 
@@ -93,16 +85,6 @@ function callme_api_key_render(  ) {
 	$options = get_option( 'ecc_settings' );
 	?>
 	<input type='text' required="true" name='ecc_settings[callme_api_key]' value='<?php echo $options['callme_api_key']; ?>'>
-	<?php
-
-}
-
-
-function callme_api_secret_render(  ) { 
-
-	$options = get_option( 'ecc_settings' );
-	?>
-	<input type='text' required="true" name='ecc_settings[callme_api_secret]' value='<?php echo $options['callme_api_secret']; ?>'>
 	<?php
 
 }
