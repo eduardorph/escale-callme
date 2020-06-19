@@ -5,7 +5,7 @@
 class Curl
 {
 
-	public function httpPost($url, $dados = null, $headers = null)
+	public function httpPost($url, $dados = null, $headers = null, $user_pwd = null)
 	{
 
 	    try {
@@ -18,6 +18,9 @@ class Curl
 		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+			if($user_pwd !== null){
+		    	curl_setopt($ch, CURLOPT_USERPWD, $user_pwd); // 'API_KEY:API_SECRET'
+		    }
 			if($dados !== null){
 		    	curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
 		    }

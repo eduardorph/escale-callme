@@ -1,0 +1,162 @@
+/*MODAIS*/
+
+.escale-callme-modal{
+	position: fixed;
+	z-index: 1000002;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	background-color: rgba(0,0,0,.8);
+}
+
+.callme_hide{
+	display: none;
+}
+
+.escale-callme-modal-wrapper{
+	background: #fff;
+	border: 10px;
+	position: relative;
+	width: 100%;
+	max-width: 450px;
+	border-radius: 10px;
+	padding: 15px 5px;
+	margin: 0 10px;
+}
+
+.escale-callme-modal-header{
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom:10px;
+}
+
+.escale-callme-modal-fechar{
+	cursor: pointer;
+	text-decoration: none;
+	background-color: #da291c;
+	padding: 5px 8px;
+	border-radius: 50px;
+}
+
+.escale-callme-modal-fechar-texto {
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.escale-callme-modal-box{
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+}
+
+.escale-callme-modal-box-escolha-titulo {
+    font-size: 23px;
+    color: #da291c;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.escale-callme-modal-box-block{
+	width: 95%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.escale-callme-modal-box-link {
+    margin: 10px auto 10px;
+    background-color: #da291c;
+    padding: 20px 30px;
+    border-radius: 25px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 25px;
+    color: #fff;
+    line-height: 20px;
+    cursor: pointer;
+    background-size: 50px;
+    background-position: 20px;
+    background-repeat: no-repeat;
+}
+
+.escale-callme-modal-box-link:hover{
+	background-color: #3f0060;
+}
+
+.escale-callme-modal-box-link-text-call{
+	font-weight: normal;
+	font-size: 15px;
+	display:block;
+}
+
+#escale-callme-modal-box-telefone a {
+    background-image: url("images/phone.svg");
+}
+
+#escale-callme-modal-box-me-ligue a{
+	background-image: url("images/phone_cb.svg");
+}
+
+#escale-callme-modal-box-sac a{
+	background-image: url("images/headset.svg");
+}
+
+
+@media (max-width: 410px) 
+{
+	.escale-callme-modal-box-link{
+		background-size: 35px;
+		background-position: 15px;
+		font-size: 20px;
+	}
+}
+
+
+/*FORM*/
+
+.escale-callme-form{
+	width: 95%;
+}
+
+.escale-callme-form-div .escale-callme-form-input{
+	width: 100%;
+	border-radius: 10px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	color: #000;
+	margin-bottom:15px;
+	padding: 15px 10px;
+}
+
+
+.escale-callme-form-div .escale-callme-form-btn{
+	width: 100%;
+    background-color: #da291c;
+    border-radius: 10px;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 20px 0px;
+    color: #fff;
+    cursor:pointer;
+}
+
+.escale-callme-form-div .escale-callme-form-btn:hover{
+	background-color:  #b11b10;
+	color: #fff;
+}
