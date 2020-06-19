@@ -1,11 +1,15 @@
 <?php
 add_action( 'admin_menu', 'ecc_add_admin_menu' );
+add_action( 'admin_menu', 'ecc_add_admin_submenu' );
 add_action( 'admin_init', 'ecc_settings_init' );
 
+function ecc_add_admin_menu() {
+    add_menu_page( 'Escale Callme', 'Escale Callme', 'manage_options', 'escale_claro_callme_menu', 'ecc_options_page' );
+}
 
-function ecc_add_admin_menu(  ) { 
+function ecc_add_admin_submenu(  ) { 
 
-	add_submenu_page( 'tools.php', 'Escale Callme', 'Escale Callme', 'manage_options', 'escale_claro_callme', 'ecc_options_page' );
+	add_submenu_page( 'escale_claro_callme_menu', 'Leads', 'Leads', 'manage_options', 'escale_claro_callme_leads', 'ecc_options_page_leads' );
 
 }
 
@@ -154,5 +158,90 @@ function ecc_options_page(  ) {
 
 		</form>
 		<?php
+
+}
+
+
+function ecc_options_page_leads(  ) { 
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'escale_callme_leads';
+    $query = "SELECT * FROM {$table_name}";
+
+    $total_query = "SELECT COUNT(1) FROM (${query}) AS combined_table";
+    $total = $wpdb->get_var( $total_query );
+
+    $items_per_page = 30;
+    $page = isset( $_GET['cpage'] ) ? abs( (int) $_GET['cpage'] ) : 1;
+    $offset = ( $page * $items_per_page ) - $items_per_page;
+
+    $leads = $wpdb->get_results( $query . " ORDER BY id DESC LIMIT ${offset}, ${items_per_page}", ARRAY_A );
+
+	?>
+
+	<style>
+		.leads_table_callme{
+			margin-bottom: 40px !important;
+			border: 1px solid #ccc;
+			width: 100%;
+			min-width: 960px;
+		}
+
+		.leads_table_callme tr th, .leads_table_callme tr td{
+			padding: 5px 10px;
+			text-align: left;
+			cursor:pointer;
+		}
+
+		.leads_table_callme tr:hover{
+			background: #c7c7c7 !important;
+		}
+
+		.leads_table_callme tr:nth-child(odd) {background: #E6E6E6}
+		.leads_table_callme tr:nth-child(even) {background: transparent}
+
+		.need_overflow{
+			max-width:100%;
+			overflow: auto;
+		}
+	</style>
+	
+	<h2>LEADS</h2>
+	<table class="leads_table_callme">
+		<tr>
+			<th>Data</th>
+			<th>Nome</th>
+			<th>Telefone</th>
+			<th>CEP</th>
+			<th>E-mail</th>
+			<th>CPF</th>
+			<th>Código Callme</th>
+			<th>Mensagem Callme</th>
+		</tr>
+	<?php
+	// $leads = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}escale_callme_leads ORDER BY id DESC", ARRAY_A );
+
+	foreach ($leads as $lead) {
+		echo "<tr>";
+		echo "<td>".$lead["created_at"]."</td>";
+		echo "<td>".$lead["name"]."</td>";
+		echo "<td>".$lead["phone"]."</td>";
+		echo "<td>".$lead["postcode"]."</td>";
+		echo "<td>".$lead["email"]."</td>";
+		echo "<td>".$lead["cpf"]."</td>";
+		echo "<td>".$lead["status_code"]."</td>";
+		echo "<td style='max-width:250px;'><div class='need_overflow'>".$lead["message"]."</div></td>";
+		echo "</tr>";
+	}
+	echo "</table>";
+
+	echo paginate_links( array(
+        'base' => add_query_arg( 'cpage', '%#%' ),
+        'format' => '',
+        'prev_text' => __('&laquo;'),
+        'next_text' => __('&raquo;'),
+        'total' => ceil($total / $items_per_page),
+        'current' => $page
+    ));
 
 }
