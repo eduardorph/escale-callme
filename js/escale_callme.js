@@ -1,12 +1,14 @@
 jQuery(function($) {
-	console.log("10");
+	console.log("14");
 
 	$(document).on('click', '#escale-callme-modal-ctas-fechar', function(event) {
 		$("#escale-callme-modal-ctas").addClass('callme_hide');
+		$('form#escale_callme_form').slideDown(); // volta o formulario
+		$(".escale-callme-modal-resposta").removeClass('show'); // esconde mensagem
 	});
 
 
-	$(document).on('click', '.escale-callme-card-botao', function(event) {
+	$(document).on('click', '.escale-callme-card-botao, [data-modal-form]', function(event) {
 		event.preventDefault();
 		var link = $(this).attr("href");
 
@@ -25,7 +27,7 @@ jQuery(function($) {
     };
 
     $('#escale_callme_form_telefone').mask(SPMaskBehavior, spOptions);
-	$('#escale_callme_form_cpf').mask('000.000.000-98');
+	$('#escale_callme_form_cpf').mask('000.000.000-00');
 	$('#escale_callme_form_cep').mask('00000-000');
 
 
@@ -33,7 +35,7 @@ jQuery(function($) {
 	$('form#escale_callme_form').on('submit', function(e){
 	    e.preventDefault();
 	    var formulario = $(this);
-
+	    var btn = formulario.find('#escale-callme-form-btn-submit');
 		var nome = formulario.find('#escale_callme_form_nome');
 		var telefone = formulario.find('#escale_callme_form_telefone');
 		var cpf = formulario.find('#escale_callme_form_cpf');
@@ -61,6 +63,7 @@ jQuery(function($) {
 				cid:cid.val()
 	        },
 	    	beforeSend: function() {
+	    		btn.val(btn.attr('data-wait'));
 		    },
 	    	success: function(response){
 	    		console.log(response);
@@ -75,9 +78,20 @@ jQuery(function($) {
 	    			cpf.css('background-color', '#ff6055ad');
 	    			cpf.focus();
 	    		}
+
+	    		if (response.error == 'callme') {
+	    			btn.val("Erro ao enviar.");
+	    		}
+
+	    		if (response.success == true) {
+	    			formulario.slideUp();
+	    			$(".escale-callme-modal-resposta").addClass('show');
+	    			formulario.trigger('reset');
+	    			btn.val(btn.attr('data-original'));
+	    		}
 	     	}, 
 	     	error: function(data){
-	        	console.log(data);
+	        	btn.val("Erro ao enviar.");
 	     	},
 	     	complete: function(){
 	     	}

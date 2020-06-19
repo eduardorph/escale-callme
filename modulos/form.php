@@ -16,9 +16,9 @@ function abrir_callme_modal(){
 	            </a>
 	        </div>
 	        <div class="escale-callme-modal-box">
-	            <span class="escale-callme-modal-box-escolha-titulo">Ligamos para você</span>
-
 	            <form id="escale_callme_form" name="escale_callme_form" method="post" action="" class="escale-callme-form" enctype="multipart/form-data">
+	            	<span class="escale-callme-modal-box-escolha-titulo">Ligamos para você</span>
+
 				    <div class="escale-callme-form-div">
 				        <input type="text" class="escale-callme-form-input" name="escale_callme_form_nome" placeholder="Nome" id="escale_callme_form_nome" required="">
 				    </div>
@@ -47,9 +47,14 @@ function abrir_callme_modal(){
 				    	<input type="hidden" name="escale_callme_url" value="<?php echo $url; ?>" id="escale_callme_url">
 				    	<input type="hidden" name="escale_callme_campanha" value="<?php echo isset($_GET['utm_campaign']) ? isset($_GET['utm_campaign']) : 'Campanha'; ?>" id="escale_callme_campanha">
 				    	<input type="hidden" name="escale_callme_cid" id="escale_callme_cid">
-				    	<input type="submit" value="ME LIGUE" data-wait="Aguarde..." id="escale-callme-form-btn-submit" class="escale-callme-form-btn">
+				    	<input type="submit" value="ME LIGUE" data-original="ME LIGUE" data-wait="Aguarde..." id="escale-callme-form-btn-submit" class="escale-callme-form-btn">
 				   	</div>
 				</form>
+
+				<div class="escale-callme-modal-resposta">
+					<h3>Contato Enviado!</h3>
+					<p>Logo entraremos em contato.</p>
+				</div>
 
 	        </div>
 	    </div>

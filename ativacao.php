@@ -27,6 +27,7 @@ function escale_callme_activation() {
 				  postcode varchar(255) DEFAULT NULL,
 				  status_code varchar(255) DEFAULT NULL,
 				  message text,
+				  transactionId text,
 				  created_at datetime DEFAULT NULL,
 				  UNIQUE KEY id (id)
 				) $charset_collate;";

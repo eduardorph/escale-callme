@@ -11,16 +11,20 @@ function escale_claro_callme(){
 	$url_base = $base_url . $_SERVER["REQUEST_URI"];
 
 	$options = get_option( 'ecc_settings' );
-	$api = $options['callme_api_url'];
+	$api_url = $options['callme_api_url'];
 	$api_key = $options['callme_api_key'];
 	
 
 	$nome = !empty($_POST["nome"]) ? $_POST["nome"] : "Cliente";
-	$cep = !empty($_POST["cep"]) ? preg_replace('/\D/', '', $_POST["cep"]) : '';
-	$email = !empty($_POST["email"]) ? $_POST["email"] : '';
+	$cep = !empty($_POST["cep"]) ? preg_replace('/\D/', '', $_POST["cep"]) : null;
+	$email = !empty($_POST["email"]) ? $_POST["email"] : null;
 	$url = !empty($_POST["url"]) ? $_POST["url"] : $url_base;
 	$campanha = !empty($_POST["campanha"]) ? $_POST["campanha"] : 'Campanha';
-	$cid = !empty($_POST["cid"]) ? $_POST["cid"] : '';
+	$cid = !empty($_POST["cid"]) ? $_POST["cid"] : null;
+
+	if (substr($url, -1) == "/") {
+		$url = substr($url, 0, -1);
+	}
 
 	$status_code = '';
 	$message = '';
@@ -30,22 +34,21 @@ function escale_claro_callme(){
 	$channel = 'FORMULARIO_WEB';
 
 
-
-	$erro = array();
+	$result = array();
 
 	if (!empty($_POST["telefone"])) {
 
 		$telefone = preg_replace('/\D/', '', $_POST["telefone"]);
 
 		if (strlen($telefone) < 10 || strlen($telefone) > 11) {
-			$erro["error"] = "telefone";
-			echo json_encode($erro);
+			$result["error"] = "telefone";
+			echo json_encode($result);
 			die;
 		}
 		
 	}else{
-		$erro["error"] = "telefone";
-		echo json_encode($erro);
+		$result["error"] = "telefone";
+		echo json_encode($result);
 		die;
 	}
 
@@ -55,14 +58,14 @@ function escale_claro_callme(){
 		$cpf = preg_replace('/\D/', '', $_POST["cpf"]);
 
 		if (strlen($cpf) !== 11) {
-			$erro["error"] = "cpf";
-			echo json_encode($erro);
+			$result["error"] = "cpf";
+			echo json_encode($result);
 			die;
 		}
 		
 	}else{
-		$erro["error"] = "cpf";
-		echo json_encode($erro);
+		$result["error"] = "cpf";
+		echo json_encode($result);
 		die;
 	}
 
@@ -70,29 +73,50 @@ function escale_claro_callme(){
 
 	$curl = new Curl;
 
+
+	$params = array(
+		'data' => array(
+			'company' => $company,
+			'channel' => $channel,
+			'url' => $url,
+			'googleClientID' => $cid,
+			'mediaId' => $campanha,
+			'name' => $nome,
+			'cpf' => $cpf,
+			'phone' => $telefone,
+			'email' => $email
+		)
+	);
+
 	$headers = array(
 		'Content-Type: application/json',
+		'accept: application/json',
 		'x-client-key: ylcwE8XLOhJtAiynNA6p5gTCozyDSiyw'
 	);
 
+	$resposta = $curl->httpPost($api_url, json_encode($params), $headers);
 
-	// $params = array(
-	// 	'data' => array(
-	// 		'company' => $company,
-	// 		'channel' => $channel,
-	// 		'url' => $url,
-	// 		'googleClientID' => $cid,
-	// 		'mediaId' => $campanha,
-	// 		'name' => $nome,
-	// 		'cpf' => $cpf,
-	// 		'phone' => $telefone,
-	// 		'email' => $email
-	// 	)
-	// );
+	$resp = json_decode($resposta, true);
 
-	// $resposta = $curl->httpPost($api, json_encode($params), $headers);
+	$transactionId = isset($resp["transactionId"]) ? $resp["transactionId"] : '';
+
+	// Verifica se existe erro
+	if (isset($resp["data"])) {
+		$status_code = "201";
+		$message = $resp["data"]["idTransacao"];
+
+		$result["success"] = true;
+	}
+
+	if (isset($resp["error"])) {
+		$status_code = $resp["error"]["httpCode"];
+		$message = $resp["error"]["message"]." -- ".$resp["error"]["detailedMessage"];
+
+		$result["error"] = "callme";
+	}
+
 	date_default_timezone_set("America/Sao_Paulo");
-	$wpdb->show_errors();
+	// $wpdb->show_errors();
 	$wpdb->insert( 
 	    $wpdb->prefix . 'escale_callme_leads', 
 	    array( 
@@ -108,13 +132,12 @@ function escale_claro_callme(){
 	        'postcode'     => $cep,
 	        'status_code'     => $status_code,
 	        'message'     => $message,
+	        'transactionId'     => $transactionId,
 	        'created_at'      => date("Y-m-d H:i:s")
 	    )
 	);
+
+	echo json_encode($result);
 	
-	echo $wpdb->print_error();
-
-	print_r( $wpdb->queries );
-
 	die();
 }
