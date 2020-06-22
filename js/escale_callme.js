@@ -1,16 +1,34 @@
 jQuery(function($) {
+	console.log("v6");
+
 	$(document).on('click', '#escale-callme-modal-ctas-fechar', function(event) {
-		$("#escale-callme-modal-ctas").addClass('callme_hide');
+		var pai = $(this).closest('.escale-callme-modal');
+		pai.addClass('callme_hide');
 		$('form#escale_callme_form').slideDown(); // volta o formulario
 		$(".escale-callme-modal-resposta").removeClass('show'); // esconde mensagem
 	});
 
 
-	$(document).on('click', '.escale-callme-card-botao, [data-modal-form]', function(event) {
+	$(document).on('click', '.escale-callme-card-botao, [data-modal-form], #escale-callme-modal-ctas-meligue', function(event) {
 		event.preventDefault();
-		var link = $(this).attr("href");
+		console.log("Clicado");
 
-		$("#escale_callme_card_link").val(link);
+		$("#escale-callme-modal-ctas-form").removeClass('callme_hide');
+	});
+
+	$(document).on('click', '[data-modal-callme-cta], .escale-callme-modal-ctas-btn', function(event) {
+		event.preventDefault();
+		console.log("Clicado");
+
+		var link = $(this).attr('href');
+
+		if (link.length > 0) {
+			$("#escale-callme-modal-ctas-carrinho").css('display', 'block');
+			$("#escale-callme-modal-ctas-carrinho").attr('href', link);
+		}else{
+			$("#escale-callme-modal-ctas-carrinho").css('display', 'none');
+		}
+
 		$("#escale-callme-modal-ctas").removeClass('callme_hide');
 	});
 
@@ -45,12 +63,12 @@ jQuery(function($) {
 	    
 
 	    $.ajax({
-	        url: ajax_object.ajax_url,
+	        url: ajax_object_callme.ajax_url_callme,
 	        type:"POST",
 	        dataType:'text',
 	        data: {
 	        	action:'escale_claro_callme',
-	        	security: ajax_object.ajax_nonce,
+	        	security: ajax_object_callme.ajax_nonce,
 	        	nome:nome.val(),
 				telefone:telefone.val(),
 				cpf:cpf.val(),

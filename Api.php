@@ -71,7 +71,7 @@ function escale_claro_callme(){
 
 
 
-	$curl = new Curl;
+	$curl = new NewCurl;
 
 
 	$params = array(

@@ -2,7 +2,7 @@
 /**
 * 
 */
-class Curl
+class NewCurl
 {
 
 	public function httpPost($url, $dados = null, $headers = null)
