@@ -8,12 +8,12 @@ function abrir_callme_modal_ctas(){
 
 	?>
 
-	<div id="escale-callme-modal-ctas" class="escale-callme-modal callme_hide"> <!-- callme_hide -->
+	<div id="escale-callme-modal-ctas" class="escale-callme-modal"> <!-- callme_hide -->
 	    <div class="escale-callme-modal-wrapper">
 	        <div class="escale-callme-modal-header">
-	            <a id="escale-callme-modal-ctas-fechar" class="escale-callme-modal-fechar">
+	            <div id="escale-callme-modal-ctas-fechar" class="escale-callme-modal-fechar">
 	                <div class="escale-callme-modal-fechar-texto">X</div>
-	            </a>
+	            </div>
 	        </div>
 	        <div class="escale-callme-modal-box">
 	        	<span class="escale-callme-modal-box-escolha-titulo">Como Deseja Contratar?</span>
