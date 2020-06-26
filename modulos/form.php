@@ -47,7 +47,7 @@ function abrir_callme_modal(){
 				    	<input type="hidden" name="escale_callme_url" value="<?php echo $url; ?>" id="escale_callme_url">
 				    	<input type="hidden" name="escale_callme_campanha" value="<?php echo isset($_GET['utm_campaign']) ? isset($_GET['utm_campaign']) : 'Campanha'; ?>" id="escale_callme_campanha">
 				    	<input type="hidden" name="escale_callme_cid" id="escale_callme_cid">
-				    	<input type="submit" value="ME LIGUE" data-original="ME LIGUE" data-wait="Aguarde..." id="escale-callme-form-btn-submit" class="escale-callme-form-btn">
+				    	<input type="submit" value="RECEBER LIGAÇÃO" data-original="RECEBER LIGAÇÃO" data-wait="Aguarde..." id="escale-callme-form-btn-submit" class="escale-callme-form-btn">
 				   	</div>
 				</form>
 
