@@ -173,6 +173,7 @@
     padding: 20px 0px;
     color: #fff;
     cursor:pointer;
+    border: none !important;
 }
 
 .escale-callme-form-div .escale-callme-form-btn:hover{
