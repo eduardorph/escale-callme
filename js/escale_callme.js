@@ -79,7 +79,7 @@ jQuery(function($) {
 				cid:cid.val()
 	        },
 	    	beforeSend: function() {
-	    		btn.val(btn.attr('data-wait'));
+	    		btn.html(btn.attr('data-wait'));
 		    },
 	    	success: function(response){
 	    		var response = JSON.parse(response);
@@ -95,19 +95,19 @@ jQuery(function($) {
 	    		}
 
 	    		if (response.error == 'callme') {
-	    			btn.val("Erro ao enviar.");
+	    			btn.html("Erro ao enviar.");
 	    		}
 
 	    		if (response.success == true) {
 	    			formulario.slideUp();
 	    			$(".escale-callme-modal-resposta").addClass('show');
 	    			formulario.trigger('reset');
-	    			btn.val(btn.attr('data-original'));
+	    			btn.html(btn.attr('data-original'));
 	    		}
 	     	}, 
 	     	error: function(data){
 	     		console.log(data);
-	        	btn.val("Erro ao enviar.");
+	        	btn.html("Erro ao enviar.");
 	     	},
 	     	complete: function(){
 	     	}
