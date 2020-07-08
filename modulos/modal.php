@@ -18,7 +18,11 @@ function abrir_callme_modal_ctas(){
 	        <div class="escale-callme-modal-box">
 	        	<span class="escale-callme-modal-box-escolha-titulo">Como Deseja Contratar?</span>
 	            <a id="escale-callme-modal-ctas-meligue" class="escale-callme-modal-ctas-btns" href="#">Me Ligue</a>
-	            <a id="escale-callme-modal-ctas-carrinho" class="escale-callme-modal-ctas-btns escale-api-card-botao" data-modal-api href="#">Contratar Online</a>
+	            <?php if(isset($options['callme_api_carrinho'])): ?>
+	            	<a id="escale-callme-modal-ctas-carrinho" class="escale-callme-modal-ctas-btns escale-api-card-botao" data-modal-api href="#">Contratar Online</a>
+	            <?php else: ?>
+	            	<a id="escale-callme-modal-ctas-carrinho" class="escale-callme-modal-ctas-btns escale-api-card-botao" href="#">Contratar Online</a>
+	            <?php endif; ?>
 	        </div>
 	    </div>
 	</div>

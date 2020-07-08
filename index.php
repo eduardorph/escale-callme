@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) or die();
 /*
 * Plugin name: Escale Callme
 * Description: Plugin para integrar ao callback da Claro
-* Version: 1.2.3
+* Version: 2.0
 * Author: Eduardo - Proteína Digital
 */
 define('ESCALE_CALLME_PLUGIN_FILE_URL', __FILE__);

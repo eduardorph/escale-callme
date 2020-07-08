@@ -37,6 +37,14 @@ function ecc_settings_init(  ) {
 
 	// CAMPOS
 	add_settings_field( 
+		'callme_api_carrinho', 
+		__( 'Modal de CEP', 'ecc' ), 
+		'callme_api_carrinho_render', 
+		'pluginPage', 
+		'ecc_pluginPage_section_api' 
+	);
+
+	add_settings_field( 
 		'callme_api_url', 
 		__( 'Callme API URL*', 'ecc' ), 
 		'callme_api_url_render', 
@@ -85,6 +93,17 @@ function ecc_settings_init(  ) {
 	);
 
 }
+
+
+function callme_api_carrinho_render(  ) { 
+
+	$options = get_option( 'ecc_settings' );
+	?>
+	<input type='checkbox' name='ecc_settings[callme_api_carrinho]' <?php checked( $options['callme_api_carrinho'], 1 ); ?> value='1'>
+	<?php
+
+}
+
 
 function callme_api_url_render(  ) { 
 
